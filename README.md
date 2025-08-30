@@ -36,8 +36,6 @@
 - Ing. Constanza Garnero  
 
 **Curso:** 4K3  
-**Fecha de entrega:** 03/09/2025  
-
  # **Documento de Gestión de Configuración**
 
 🔗 **Enlace al repositorio público:** [*Repositorio Grupo 3 - ISW - 4K3 - 2025*](https://github.com/agoslandi15/ISW_2025_4K3_G3)
