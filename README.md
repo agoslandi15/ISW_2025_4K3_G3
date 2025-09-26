@@ -60,8 +60,7 @@ ISW_2025_4K3_G3
 │   └── Bibliografía
 └── Entregas
     ├── Trabajos de Investigación Grupal
-    └── Trabajos Prácticos Evaluables
-        └── TPN
+    └── Trabajos Prácticos Evaluables   
 ```
 
 ## 📦 Ítems de Configuración
@@ -75,7 +74,7 @@ ISW_2025_4K3_G3
 | Guía de Trabajos Prácticos Evaluables         | Material de Estudio  | `Guía de Trabajos Prácticos Evaluables.pdf` | `ISW_2025_4K3_G3/Documentacion/`                                     |
 | Lineamientos para Trabajos de Investigación Grupal   | Planificación        | `ISW_Lineamientos_2025.pdf`                | `ISW_2025_4K3_G3/Entregas/Trabajos de Investigacion Grupal/`             |
 | Bibliografía                                  | Material de Estudio  | `<<Titulo>>_<<Autor>>.pdf`                 | `ISW_2025_4K3_G3/Documentacion/Bibliografía/`                             |
-| Trabajos Prácticos                            | Entregas             | `TP_<<Tema>>.pdf`                          | `ISW_2025_4K3_G3/Entregas/`                                               |
+| Trabajos Prácticos                            | Entregas             | `TP_<<Tema>>.pdf`                          | `ISW_2025_4K3_G3/Entregas/Trabajos Prácticos Evaluables`                     |
 | Clases Grabadas                                | Material de Estudio  | `ISW_Clases_grabadas.xlsx`                 | `ISW_2025_4K3_G3/Documentación/`                                          |
 | Presentación de la materia ISW                | Planificación        | `Presentación_ISW.pdf`                     | `ISW_2025_4K3_G3/Planificación/`                                          |
 | Trabajos de Investigación Grupal              | Entregas             | `TIG<<Nro>>_<<Tema>>.pdf`                  | `ISW_2025_4K3_G3/Entregas/Trabajos de Investigación Grupal/`             |
