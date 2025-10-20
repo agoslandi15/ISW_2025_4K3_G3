@@ -321,6 +321,12 @@ export function TicketPurchaseForm() {
                             }}
                             className={errors[`visitor-${index}`] ? "border-destructive" : ""}
                           />
+                          {errors[`visitor-${index}`] && (
+                            <Alert variant="destructive">
+                              <AlertCircle className="h-4 w-4" />
+                              <AlertDescription>{errors[`visitor-${index}`]}</AlertDescription>
+                            </Alert>
+                          )}
                           {visitor.age !== null && (
                             <>
                               {(visitor.age <= 3 || visitor.age >= 60) && (
