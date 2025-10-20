@@ -1,8 +1,9 @@
 "use client"
 
+import Image from "next/image"
 import { use_auth } from "@/lib/auth-context"
 import { Button } from "@/components/ui/button"
-import { LogOut, User, Leaf } from "lucide-react"
+import { LogOut, User } from "lucide-react"
 
 export function Header() {
   const { user, logout } = use_auth()
@@ -12,8 +13,15 @@ export function Header() {
       <div className="container mx-auto px-4 py-4">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <div className="flex h-10 w-10 items-center justify-center rounded-full bg-primary">
-              <Leaf className="h-6 w-6 text-white" />
+            <div className="flex h-24 w-24 items-center justify-center overflow-hidden">
+              <Image
+                src="/logoEcoHarmonyPark.jpg"
+                alt="EcoHarmony Park logo"
+                width={96}
+                height={96}
+                className="h-24 w-24 object-contain"
+                priority
+              />
             </div>
             <div>
               <h1 className="font-display text-xl font-bold text-primary">EcoHarmony Park</h1>

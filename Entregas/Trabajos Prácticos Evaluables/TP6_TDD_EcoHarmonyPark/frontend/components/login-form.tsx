@@ -1,15 +1,15 @@
 "use client"
 
 import type React from "react"
-
 import { useState } from "react"
+import Image from "next/image"
 import { use_auth } from "@/lib/auth-context"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Alert, AlertDescription } from "@/components/ui/alert"
-import { Leaf, Trees, Sparkles } from "lucide-react"
+import { Trees, Sparkles } from "lucide-react"
 
 export function LoginForm() {
   const { login, register } = use_auth()
@@ -65,7 +65,15 @@ export function LoginForm() {
       </div>
 
       <div className="absolute left-[10%] top-[15%] animate-float opacity-20">
-        <Leaf className="h-12 w-12 text-primary" />
+        <div className="h-24 w-24 overflow-hidden">
+          <Image
+            src="/logoEcoHarmonyPark.jpg"
+            alt="EcoHarmony Park logo floating"
+            width={96}
+            height={96}
+            className="h-24 w-24 object-contain"
+          />
+        </div>
       </div>
       <div className="absolute right-[15%] top-[25%] animate-float-delayed opacity-20">
         <Trees className="h-16 w-16 text-accent" />
@@ -76,8 +84,15 @@ export function LoginForm() {
 
       <Card className="relative w-full max-w-md shadow-2xl backdrop-blur-sm">
         <CardHeader className="space-y-4 text-center">
-          <div className="mx-auto flex h-20 w-20 items-center justify-center rounded-full bg-gradient-to-br from-primary to-accent shadow-lg">
-            <Leaf className="h-10 w-10 text-white" />
+          <div className="mx-auto flex h-56 w-56 items-center justify-center rounded-full overflow-hidden">
+            <Image
+              src="/logoEcoHarmonyPark.jpg"
+              alt="EcoHarmony Park logo"
+              width={224}
+              height={224}
+              className="h-56 w-56 object-contain"
+              priority
+            />
           </div>
           <div>
             <CardTitle className="font-display text-3xl font-bold text-balance">
