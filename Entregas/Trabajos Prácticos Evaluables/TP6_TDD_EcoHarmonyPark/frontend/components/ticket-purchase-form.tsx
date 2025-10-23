@@ -26,8 +26,8 @@ export function TicketPurchaseForm() {
 
   // Form state
   const [visit_date, set_visit_date] = useState("")
-  const [quantity, set_quantity] = useState(1)
-  const [visitors, set_visitors] = useState<Visitor[]>([{ age: null, pass_type: "Regular" }])
+  const [quantity, set_quantity] = useState<number | "">("")
+  const [visitors, set_visitors] = useState<Visitor[]>([])
   const [payment_method, set_payment_method] = useState<"cash" | "card" | "">("")
 
   // Hook para manejar la compra
@@ -74,8 +74,8 @@ export function TicketPurchaseForm() {
       }
     }
 
-    if (quantity < 1) {
-      new_errors.quantity = "Debes seleccionar al menos 1 entrada"
+    if (quantity === "" || typeof quantity === "string" || quantity < 1) {
+      new_errors.quantity = "Debes ingresar al menos 1 entrada"
     } else if (quantity > 10) {
       new_errors.quantity = "No puedes comprar más de 10 entradas"
     }
@@ -108,8 +108,14 @@ export function TicketPurchaseForm() {
     return Object.keys(new_errors).length === 0
   }
 
-  const handle_quantity_change = (new_quantity: number) => {
+  const handle_quantity_change = (new_quantity: number | "") => {
     set_quantity(new_quantity)
+    
+    if (new_quantity === "" || new_quantity < 1) {
+      set_visitors([])
+      return
+    }
+    
     const current_visitors = [...visitors]
 
     if (new_quantity > current_visitors.length) {
@@ -155,7 +161,7 @@ export function TicketPurchaseForm() {
     try {
       const resultado = await comprar_entradas(
         visit_date,
-        quantity,
+        typeof quantity === "number" ? quantity : 0,
         visitors,
         payment_method as "cash" | "card",
         user!.email,
@@ -269,8 +275,19 @@ export function TicketPurchaseForm() {
                   type="number"
                   min="1"
                   max="10"
+                  placeholder="Ingrese la cantidad de entradas"
                   value={quantity}
-                  onChange={(e) => handle_quantity_change(Number.parseInt(e.target.value) || 1)}
+                  onChange={(e) => {
+                    const value = e.target.value;
+                    if (value === '') {
+                      handle_quantity_change('');
+                    } else {
+                      const num = Number.parseInt(value);
+                      if (!isNaN(num)) {
+                        handle_quantity_change(num);
+                      }
+                    }
+                  }}
                   className={`h-12 text-base md:h-10 md:text-sm ${errors.quantity ? "border-destructive" : ""}`}
                 />
                 {errors.quantity && (
