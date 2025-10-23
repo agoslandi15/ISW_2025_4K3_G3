@@ -13,35 +13,35 @@ function ConfirmationContent() {
   const router = useRouter()
   const searchParams = useSearchParams()
   const { user } = use_auth()
-  const ticketId = searchParams.get("ticketId")
+  const ticket_id = searchParams.get("ticketId")
 
-  const [ticket, setTicket] = useState<Ticket | null>(null)
+  const [ticket, set_ticket] = useState<Ticket | null>(null)
   const [is_loading, set_is_loading] = useState(true)
 
   useEffect(() => {
-    const loadTicket = async () => {
-      if (!ticketId || !user) {
+    const load_ticket = async () => {
+      if (!ticket_id || !user) {
         router.push("/")
         return
       }
 
       // Obtener datos del ticket desde localStorage (guardado después de la compra exitosa)
-      const ticketData = localStorage.getItem(`ticket_${ticketId}`)
+      const ticket_data = localStorage.getItem(`ticket_${ticket_id}`)
       
-      if (!ticketData) {
+      if (!ticket_data) {
         console.error("No se encontraron datos del ticket")
         router.push("/")
         return
       }
 
-      const foundTicket = JSON.parse(ticketData)
-      setTicket(foundTicket)
+      const found_ticket = JSON.parse(ticket_data)
+      set_ticket(found_ticket)
 
       set_is_loading(false)
     }
 
-    loadTicket()
-  }, [ticketId, user, router])
+    load_ticket()
+  }, [ticket_id, user, router])
 
   if (is_loading || !ticket) {
     return (
@@ -51,7 +51,7 @@ function ConfirmationContent() {
     )
   }
 
-  const visitDate = new Date(ticket.visit_date + "T00:00:00").toLocaleDateString("es-AR", {
+  const visit_date = new Date(ticket.visit_date + "T00:00:00").toLocaleDateString("es-AR", {
     weekday: "long",
     year: "numeric",
     month: "long",
@@ -116,7 +116,7 @@ function ConfirmationContent() {
                   </div>
                   <div>
                     <div className="text-sm text-muted-foreground">Fecha de Visita</div>
-                    <div className="font-semibold">{visitDate}</div>
+                    <div className="font-semibold">{visit_date}</div>
                   </div>
                 </div>
 

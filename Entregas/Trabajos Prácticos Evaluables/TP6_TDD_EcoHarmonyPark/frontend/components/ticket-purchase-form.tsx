@@ -22,159 +22,159 @@ interface Visitor {
 export function TicketPurchaseForm() {
   const router = useRouter()
   const { user } = use_auth()
-  const [step, setStep] = useState(1)
+  const [step, set_step] = useState(1)
 
   // Form state
-  const [visitDate, setVisitDate] = useState("")
-  const [quantity, setQuantity] = useState(1)
-  const [visitors, setVisitors] = useState<Visitor[]>([{ age: null, pass_type: "Regular" }])
-  const [paymentMethod, setPaymentMethod] = useState<"cash" | "card" | "">("")
+  const [visit_date, set_visit_date] = useState("")
+  const [quantity, set_quantity] = useState(1)
+  const [visitors, set_visitors] = useState<Visitor[]>([{ age: null, pass_type: "Regular" }])
+  const [payment_method, set_payment_method] = useState<"cash" | "card" | "">("")
 
   // Hook para manejar la compra
   const { comprar_entradas, redirect_to_payment, redirect_to_confirmation, is_loading, error: compra_error } = use_comprar_entradas()
   
   // Validation errors
-  const [errors, setErrors] = useState<Record<string, string>>({})
+  const [errors, set_errors] = useState<Record<string, string>>({})
 
-  const validateStep1 = (): boolean => {
-    const newErrors: Record<string, string> = {}
+  const validate_step_1 = (): boolean => {
+    const new_errors: Record<string, string> = {}
 
-    if (!visitDate) {
-      newErrors.visitDate = "Debes seleccionar una fecha de visita"
+    if (!visit_date) {
+      new_errors.visitDate = "Debes seleccionar una fecha de visita"
     } else {
-      const selectedDate = new Date(visitDate + "T00:00:00")
+      const selected_date = new Date(visit_date + "T00:00:00")
       const today = new Date()
       today.setHours(0, 0, 0, 0)
 
-      const errorMessages: string[] = []
+      const error_messages: string[] = []
 
-      if (selectedDate < today) {
-        errorMessages.push("La fecha debe ser hoy o en el futuro")
+      if (selected_date < today) {
+        error_messages.push("La fecha debe ser hoy o en el futuro")
       } else {
         // Solo validar las otras restricciones si la fecha no está en el pasado
-        if (is_christmas(selectedDate)) {
-          errorMessages.push("El parque está cerrado el 25 de diciembre (Navidad)")
+        if (is_christmas(selected_date)) {
+          error_messages.push("El parque está cerrado el 25 de diciembre (Navidad)")
         }
         
-        if (is_new_year(selectedDate)) {
-          errorMessages.push("El parque está cerrado el 1 de enero (Año Nuevo)")
+        if (is_new_year(selected_date)) {
+          error_messages.push("El parque está cerrado el 1 de enero (Año Nuevo)")
         }
         
-        if (!is_park_open(selectedDate)) {
-          errorMessages.push("El parque está cerrado en la fecha seleccionada (cerrado los lunes)")
+        if (!is_park_open(selected_date)) {
+          error_messages.push("El parque está cerrado en la fecha seleccionada (cerrado los lunes)")
         }
         
-        if (!is_within_one_month(selectedDate)) {
-          errorMessages.push("Solo puedes comprar entradas con máximo un mes de anticipación")
+        if (!is_within_one_month(selected_date)) {
+          error_messages.push("Solo puedes comprar entradas con máximo un mes de anticipación")
         }
       }
 
-      if (errorMessages.length > 0) {
-        newErrors.visitDate = errorMessages.join(" • ")
+      if (error_messages.length > 0) {
+        new_errors.visitDate = error_messages.join(" • ")
       }
     }
 
     if (quantity < 1) {
-      newErrors.quantity = "Debes seleccionar al menos 1 entrada"
+      new_errors.quantity = "Debes seleccionar al menos 1 entrada"
     } else if (quantity > 10) {
-      newErrors.quantity = "No puedes comprar más de 10 entradas"
+      new_errors.quantity = "No puedes comprar más de 10 entradas"
     }
 
-    setErrors(newErrors)
-    return Object.keys(newErrors).length === 0
+    set_errors(new_errors)
+    return Object.keys(new_errors).length === 0
   }
 
-  const validateStep2 = (): boolean => {
-    const newErrors: Record<string, string> = {}
+  const validate_step_2 = (): boolean => {
+    const new_errors: Record<string, string> = {}
 
     visitors.forEach((visitor, index) => {
       if (visitor.age === null || visitor.age < 0) {
-        newErrors[`visitor-${index}`] = "Debes ingresar una edad válida"
+        new_errors[`visitor-${index}`] = "Debes ingresar una edad válida"
       }
     })
 
-    setErrors(newErrors)
-    return Object.keys(newErrors).length === 0
+    set_errors(new_errors)
+    return Object.keys(new_errors).length === 0
   }
 
-  const validateStep3 = (): boolean => {
-    const newErrors: Record<string, string> = {}
+  const validate_step_3 = (): boolean => {
+    const new_errors: Record<string, string> = {}
 
-    if (!paymentMethod) {
-      newErrors.paymentMethod = "Debes seleccionar una forma de pago"
+    if (!payment_method) {
+      new_errors.paymentMethod = "Debes seleccionar una forma de pago"
     }
 
-    setErrors(newErrors)
-    return Object.keys(newErrors).length === 0
+    set_errors(new_errors)
+    return Object.keys(new_errors).length === 0
   }
 
-  const handleQuantityChange = (newQuantity: number) => {
-    setQuantity(newQuantity)
-    const currentVisitors = [...visitors]
+  const handle_quantity_change = (new_quantity: number) => {
+    set_quantity(new_quantity)
+    const current_visitors = [...visitors]
 
-    if (newQuantity > currentVisitors.length) {
+    if (new_quantity > current_visitors.length) {
       // Add new visitors
-      for (let i = currentVisitors.length; i < newQuantity; i++) {
-        currentVisitors.push({ age: null, pass_type: "Regular" })
+      for (let i = current_visitors.length; i < new_quantity; i++) {
+        current_visitors.push({ age: null, pass_type: "Regular" })
       }
-    } else if (newQuantity < currentVisitors.length) {
+    } else if (new_quantity < current_visitors.length) {
       // Remove excess visitors
-      currentVisitors.splice(newQuantity)
+      current_visitors.splice(new_quantity)
     }
 
-    setVisitors(currentVisitors)
+    set_visitors(current_visitors)
   }
 
-  const updateVisitor = (index: number, field: keyof Visitor, value: any) => {
-    const newVisitors = [...visitors]
-    newVisitors[index] = { ...newVisitors[index], [field]: value }
-    setVisitors(newVisitors)
+  const update_visitor = (index: number, field: keyof Visitor, value: any) => {
+    const new_visitors = [...visitors]
+    new_visitors[index] = { ...new_visitors[index], [field]: value }
+    set_visitors(new_visitors)
   }
 
-  const handleNext = () => {
-    let isValid = false
+  const handle_next = () => {
+    let is_valid = false
 
     if (step === 1) {
-      isValid = validateStep1()
+      is_valid = validate_step_1()
     } else if (step === 2) {
-      isValid = validateStep2()
+      is_valid = validate_step_2()
     }
 
-    if (isValid) {
-      setStep(step + 1)
+    if (is_valid) {
+      set_step(step + 1)
     }
   }
 
-  const handleSubmit = async () => {
-    if (!validateStep3()) {
+  const handle_submit = async () => {
+    if (!validate_step_3()) {
       return
     }
 
-    setErrors({})
+    set_errors({})
 
     try {
       const resultado = await comprar_entradas(
-        visitDate,
+        visit_date,
         quantity,
         visitors,
-        paymentMethod as "cash" | "card",
+        payment_method as "cash" | "card",
         user!.email,
         user!.id
       )
 
       if (resultado.success) {
         // Redirigir según método de pago
-        if (paymentMethod === "card") {
+        if (payment_method === "card") {
           redirect_to_payment(resultado.codigoEntrada!)
         } else {
           redirect_to_confirmation(resultado.codigoEntrada!)
         }
       } else {
-        setErrors({ submit: resultado.error || "Error desconocido al procesar la compra" })
+        set_errors({ submit: resultado.error || "Error desconocido al procesar la compra" })
       }
     } catch (error) {
       console.error("Error inesperado:", error)
-      setErrors({ submit: "Error inesperado. Por favor, intenta nuevamente." })
+      set_errors({ submit: "Error inesperado. Por favor, intenta nuevamente." })
     }
   }
 
@@ -244,8 +244,8 @@ export function TicketPurchaseForm() {
                   id="visitDate"
                   type="date"
                   min={get_min_date()}
-                  value={visitDate}
-                  onChange={(e) => setVisitDate(e.target.value)}
+                  value={visit_date}
+                  onChange={(e) => set_visit_date(e.target.value)}
                   className={`h-12 text-base md:h-10 md:text-sm ${errors.visitDate ? "border-destructive" : ""}`}
                 />
                 {errors.visitDate && (
@@ -270,7 +270,7 @@ export function TicketPurchaseForm() {
                   min="1"
                   max="10"
                   value={quantity}
-                  onChange={(e) => handleQuantityChange(Number.parseInt(e.target.value) || 1)}
+                  onChange={(e) => handle_quantity_change(Number.parseInt(e.target.value) || 1)}
                   className={`h-12 text-base md:h-10 md:text-sm ${errors.quantity ? "border-destructive" : ""}`}
                 />
                 {errors.quantity && (
@@ -283,7 +283,7 @@ export function TicketPurchaseForm() {
               </div>
 
               <div className="flex justify-end px-2">
-                <Button onClick={handleNext} className="bg-primary hover:bg-primary-dark h-12 px-8 text-base md:h-10 md:px-4 md:text-sm w-full max-w-xs md:w-auto">
+                <Button onClick={handle_next} className="bg-primary hover:bg-primary-dark h-12 px-8 text-base md:h-10 md:px-4 md:text-sm w-full max-w-xs md:w-auto">
                   Continuar
                 </Button>
               </div>
@@ -313,11 +313,11 @@ export function TicketPurchaseForm() {
                             onChange={(e) => {
                               const value = e.target.value;
                               if (value === '') {
-                                updateVisitor(index, "age", null);
+                                update_visitor(index, "age", null);
                               } else {
                                 const num = parseInt(value);
                                 if (!isNaN(num) && num >= 0 && num <= 120) {
-                                  updateVisitor(index, "age", num);
+                                  update_visitor(index, "age", num);
                                 }
                               }
                             }}
@@ -345,7 +345,7 @@ export function TicketPurchaseForm() {
                           <Label htmlFor={`pass-${index}`}>Tipo de Pase</Label>
                           <Select
                             value={visitor.pass_type}
-                            onValueChange={(value) => updateVisitor(index, "pass_type", value)}
+                            onValueChange={(value) => update_visitor(index, "pass_type", value)}
                           >
                             <SelectTrigger id={`pass-${index}`} className="h-12 text-base md:h-10 md:text-sm">
                               <SelectValue />
@@ -363,10 +363,10 @@ export function TicketPurchaseForm() {
               </div>
 
               <div className="flex items-center justify-between border-t pt-4 gap-2 px-2">
-                <Button variant="outline" onClick={() => setStep(1)} className="h-12 px-4 text-base md:h-10 md:px-4 md:text-sm flex-1 max-w-[45%] md:flex-none md:max-w-none">
+                <Button variant="outline" onClick={() => set_step(1)} className="h-12 px-4 text-base md:h-10 md:px-4 md:text-sm flex-1 max-w-[45%] md:flex-none md:max-w-none">
                   Atrás
                 </Button>
-                <Button onClick={handleNext} className="bg-primary hover:bg-primary-dark h-12 px-4 text-base md:h-10 md:px-4 md:text-sm flex-1 max-w-[45%] md:flex-none md:max-w-none">
+                <Button onClick={handle_next} className="bg-primary hover:bg-primary-dark h-12 px-4 text-base md:h-10 md:px-4 md:text-sm flex-1 max-w-[45%] md:flex-none md:max-w-none">
                   Continuar
                 </Button>
               </div>
@@ -386,7 +386,7 @@ export function TicketPurchaseForm() {
                   </div>
                   <p className="mt-1 text-sm text-muted-foreground">
                     {quantity} {quantity === 1 ? "entrada" : "entradas"} para el{" "}
-                    {new Date(visitDate + "T00:00:00").toLocaleDateString("es-AR", {
+                    {new Date(visit_date + "T00:00:00").toLocaleDateString("es-AR", {
                       weekday: "long",
                       year: "numeric",
                       month: "long",
@@ -401,8 +401,8 @@ export function TicketPurchaseForm() {
                     Forma de Pago
                   </Label>
                   <RadioGroup
-                    value={paymentMethod}
-                    onValueChange={(value) => setPaymentMethod(value as "cash" | "card")}
+                    value={payment_method}
+                    onValueChange={(value) => set_payment_method(value as "cash" | "card")}
                   >
                     <div className="flex items-center space-x-3 rounded-lg border p-4 md:p-3 hover:bg-muted/50 min-h-[72px] md:min-h-[60px]">
                       <RadioGroupItem value="card" id="card" className="mt-1" />
@@ -436,11 +436,11 @@ export function TicketPurchaseForm() {
               )}
 
               <div className="flex items-center justify-between border-t pt-4 gap-2 px-2">
-                <Button variant="outline" onClick={() => setStep(2)} disabled={is_loading} className="h-12 px-3 text-sm md:h-10 md:px-4 md:text-sm flex-1 max-w-[35%] md:flex-none md:max-w-none">
+                <Button variant="outline" onClick={() => set_step(2)} disabled={is_loading} className="h-12 px-3 text-sm md:h-10 md:px-4 md:text-sm flex-1 max-w-[35%] md:flex-none md:max-w-none">
                   Atrás
                 </Button>
                 <Button 
-                  onClick={handleSubmit} 
+                  onClick={handle_submit} 
                   disabled={is_loading}
                   className="bg-primary hover:bg-primary-dark h-12 px-3 text-sm md:h-10 md:px-4 md:text-sm flex-1 max-w-[60%] md:flex-none md:max-w-none"
                 >

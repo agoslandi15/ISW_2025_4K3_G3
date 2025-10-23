@@ -19,7 +19,7 @@ interface AuthContextType {
 const AuthContext = createContext<AuthContextType | undefined>(undefined)
 
 export function AuthProvider({ children }: { children: ReactNode }) {
-  const [user, setUser] = useState<User | null>(null)
+  const [user, set_user] = useState<User | null>(null)
   const [is_loading, set_is_loading] = useState(true)
 
   useEffect(() => {
@@ -37,7 +37,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     // Check if user is logged in on mount
     const stored_user = localStorage.getItem("park_user")
     if (stored_user) {
-      setUser(JSON.parse(stored_user))
+      set_user(JSON.parse(stored_user))
     }
     set_is_loading(false)
   }, [])
@@ -72,7 +72,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
     // Loguear al usuario (sin validar contraseña específica)
     const user_data = { id: found_user.id, email: found_user.email, name: found_user.name }
-    setUser(user_data)
+    set_user(user_data)
     localStorage.setItem("park_user", JSON.stringify(user_data))
     return true
   }
@@ -97,13 +97,13 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     localStorage.setItem("park_users", JSON.stringify(users))
 
     const user_data = { id: new_user.id, email: new_user.email, name: new_user.name }
-    setUser(user_data)
+    set_user(user_data)
     localStorage.setItem("park_user", JSON.stringify(user_data))
     return true
   }
 
   const logout = () => {
-    setUser(null)
+    set_user(null)
     localStorage.removeItem("park_user")
   }
 

@@ -30,7 +30,7 @@ function ItemSeparator({
   )
 }
 
-const itemVariants = cva(
+const item_variants = cva(
   'group/item flex items-center border border-transparent text-sm rounded-md transition-colors [a&]:hover:bg-accent/50 [a&]:transition-colors duration-100 flex-wrap outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px]',
   {
     variants: {
@@ -58,20 +58,20 @@ function Item({
   asChild = false,
   ...props
 }: React.ComponentProps<'div'> &
-  VariantProps<typeof itemVariants> & { asChild?: boolean }) {
+  VariantProps<typeof item_variants> & { asChild?: boolean }) {
   const Comp = asChild ? Slot : 'div'
   return (
     <Comp
       data-slot="item"
       data-variant={variant}
       data-size={size}
-      className={cn(itemVariants({ variant, size, className }))}
+      className={cn(item_variants({ variant, size, className }))}
       {...props}
     />
   )
 }
 
-const itemMediaVariants = cva(
+const item_media_variants = cva(
   'flex shrink-0 items-center justify-center gap-2 group-has-[[data-slot=item-description]]/item:self-start [&_svg]:pointer-events-none group-has-[[data-slot=item-description]]/item:translate-y-0.5',
   {
     variants: {
@@ -92,12 +92,12 @@ function ItemMedia({
   className,
   variant = 'default',
   ...props
-}: React.ComponentProps<'div'> & VariantProps<typeof itemMediaVariants>) {
+}: React.ComponentProps<'div'> & VariantProps<typeof item_media_variants>) {
   return (
     <div
       data-slot="item-media"
       data-variant={variant}
-      className={cn(itemMediaVariants({ variant, className }))}
+      className={cn(item_media_variants({ variant, className }))}
       {...props}
     />
   )

@@ -54,7 +54,7 @@ function FieldGroup({ className, ...props }: React.ComponentProps<'div'>) {
   )
 }
 
-const fieldVariants = cva(
+const field_variants = cva(
   'group/field flex w-full gap-3 data-[invalid=true]:text-destructive',
   {
     variants: {
@@ -82,13 +82,13 @@ function Field({
   className,
   orientation = 'vertical',
   ...props
-}: React.ComponentProps<'div'> & VariantProps<typeof fieldVariants>) {
+}: React.ComponentProps<'div'> & VariantProps<typeof field_variants>) {
   return (
     <div
       role="group"
       data-slot="field"
       data-orientation={orientation}
-      className={cn(fieldVariants({ orientation }), className)}
+      className={cn(field_variants({ orientation }), className)}
       {...props}
     />
   )

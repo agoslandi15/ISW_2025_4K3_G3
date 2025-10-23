@@ -15,7 +15,7 @@ type ToasterToast = ToastProps & {
   action?: ToastActionElement
 }
 
-const actionTypes = {
+const action_types = {
   ADD_TOAST: 'ADD_TOAST',
   UPDATE_TOAST: 'UPDATE_TOAST',
   DISMISS_TOAST: 'DISMISS_TOAST',
@@ -29,7 +29,7 @@ function genId() {
   return count.toString()
 }
 
-type ActionType = typeof actionTypes
+type ActionType = typeof action_types
 
 type Action =
   | {
@@ -53,22 +53,22 @@ interface State {
   toasts: ToasterToast[]
 }
 
-const toastTimeouts = new Map<string, ReturnType<typeof setTimeout>>()
+const toast_timeouts = new Map<string, ReturnType<typeof setTimeout>>()
 
-const addToRemoveQueue = (toastId: string) => {
-  if (toastTimeouts.has(toastId)) {
+const add_to_remove_queue = (toast_id: string) => {
+  if (toast_timeouts.has(toast_id)) {
     return
   }
 
   const timeout = setTimeout(() => {
-    toastTimeouts.delete(toastId)
+    toast_timeouts.delete(toast_id)
     dispatch({
       type: 'REMOVE_TOAST',
-      toastId: toastId,
+      toastId: toast_id,
     })
   }, TOAST_REMOVE_DELAY)
 
-  toastTimeouts.set(toastId, timeout)
+  toast_timeouts.set(toast_id, timeout)
 }
 
 export const reducer = (state: State, action: Action): State => {
@@ -93,10 +93,10 @@ export const reducer = (state: State, action: Action): State => {
       // ! Side effects ! - This could be extracted into a dismissToast() action,
       // but I'll keep it here for simplicity
       if (toastId) {
-        addToRemoveQueue(toastId)
+        add_to_remove_queue(toastId)
       } else {
         state.toasts.forEach((toast) => {
-          addToRemoveQueue(toast.id)
+          add_to_remove_queue(toast.id)
         })
       }
 
@@ -128,12 +128,12 @@ export const reducer = (state: State, action: Action): State => {
 
 const listeners: Array<(state: State) => void> = []
 
-let memoryState: State = { toasts: [] }
+let memory_state: State = { toasts: [] }
 
 function dispatch(action: Action) {
-  memoryState = reducer(memoryState, action)
+  memory_state = reducer(memory_state, action)
   listeners.forEach((listener) => {
-    listener(memoryState)
+    listener(memory_state)
   })
 }
 
@@ -169,7 +169,7 @@ function toast({ ...props }: Toast) {
 }
 
 function useToast() {
-  const [state, setState] = React.useState<State>(memoryState)
+  const [state, setState] = React.useState<State>(memory_state)
 
   React.useEffect(() => {
     listeners.push(setState)

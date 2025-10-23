@@ -25,7 +25,7 @@ type FormFieldContextValue<
   name: TName
 }
 
-const FormFieldContext = React.createContext<FormFieldContextValue>(
+const Form_Field_Context = React.createContext<FormFieldContextValue>(
   {} as FormFieldContextValue,
 )
 
@@ -36,32 +36,32 @@ const FormField = <
   ...props
 }: ControllerProps<TFieldValues, TName>) => {
   return (
-    <FormFieldContext.Provider value={{ name: props.name }}>
+    <Form_Field_Context.Provider value={{ name: props.name }}>
       <Controller {...props} />
-    </FormFieldContext.Provider>
+    </Form_Field_Context.Provider>
   )
 }
 
 const useFormField = () => {
-  const fieldContext = React.useContext(FormFieldContext)
-  const itemContext = React.useContext(FormItemContext)
+  const field_context = React.useContext(Form_Field_Context)
+  const item_context = React.useContext(Form_Item_Context)
   const { getFieldState } = useFormContext()
-  const formState = useFormState({ name: fieldContext.name })
-  const fieldState = getFieldState(fieldContext.name, formState)
+  const form_state = useFormState({ name: field_context.name })
+  const field_state = getFieldState(field_context.name, form_state)
 
-  if (!fieldContext) {
+  if (!field_context) {
     throw new Error('useFormField should be used within <FormField>')
   }
 
-  const { id } = itemContext
+  const { id } = item_context
 
   return {
     id,
-    name: fieldContext.name,
+    name: field_context.name,
     formItemId: `${id}-form-item`,
     formDescriptionId: `${id}-form-item-description`,
     formMessageId: `${id}-form-item-message`,
-    ...fieldState,
+    ...field_state,
   }
 }
 
@@ -69,7 +69,7 @@ type FormItemContextValue = {
   id: string
 }
 
-const FormItemContext = React.createContext<FormItemContextValue>(
+const Form_Item_Context = React.createContext<FormItemContextValue>(
   {} as FormItemContextValue,
 )
 
@@ -77,13 +77,13 @@ function FormItem({ className, ...props }: React.ComponentProps<'div'>) {
   const id = React.useId()
 
   return (
-    <FormItemContext.Provider value={{ id }}>
+    <Form_Item_Context.Provider value={{ id }}>
       <div
         data-slot="form-item"
         className={cn('grid gap-2', className)}
         {...props}
       />
-    </FormItemContext.Provider>
+    </Form_Item_Context.Provider>
   )
 }
 

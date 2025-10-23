@@ -19,69 +19,69 @@ const MP_COLORS = {
 function MpContent() {
   const router = useRouter()
   const searchParams = useSearchParams()
-  const ticketId = searchParams.get("ticketId")
+  const ticket_id = searchParams.get("ticketId")
 
-  const [ticket, setTicket] = useState<Ticket | null>(null)
-  const [redirecting, setRedirecting] = useState(false)
-  const [processing, setProcessing] = useState(false)
-  const [returningToSite, setReturningToSite] = useState(false)
+  const [ticket, set_ticket] = useState<Ticket | null>(null)
+  const [redirecting, set_redirecting] = useState(false)
+  const [processing, set_processing] = useState(false)
+  const [returning_to_site, set_returning_to_site] = useState(false)
 
   useEffect(() => {
-    if (!ticketId) {
+    if (!ticket_id) {
       router.push("/")
       return
     }
 
     // Obtener datos del ticket desde localStorage (guardado después de la compra exitosa)
-    const ticketData = localStorage.getItem(`ticket_${ticketId}`)
+    const ticket_data = localStorage.getItem(`ticket_${ticket_id}`)
     
-    if (!ticketData) {
+    if (!ticket_data) {
       console.error("No se encontraron datos del ticket")
       router.push("/")
       return
     }
 
-    const foundTicket = JSON.parse(ticketData)
-    setTicket(foundTicket)
+    const found_ticket = JSON.parse(ticket_data)
+    set_ticket(found_ticket)
 
     // Simular redirección a Mercado Pago
-    setRedirecting(true)
-  }, [ticketId, router])
+    set_redirecting(true)
+  }, [ticket_id, router])
 
   useEffect(() => {
     if (redirecting) {
       const timer = setTimeout(() => {
-        setRedirecting(false)
+        set_redirecting(false)
       }, 2000)
       return () => clearTimeout(timer)
     }
   }, [redirecting])
 
   useEffect(() => {
-    if (returningToSite) {
+    if (returning_to_site) {
       const timer = setTimeout(() => {
-        router.push(`/pag_confirmacion?ticketId=${ticketId}`)
+        router.push(`/pag_confirmacion?ticketId=${ticket_id}`)
       }, 2000)
       return () => clearTimeout(timer)
     }
-  }, [returningToSite, ticketId, router])
+  }, [returning_to_site, ticket_id, router])
 
-  const handlePayment = async () => {
+  const handle_payment = async () => {
     if (!ticket) return
 
-    setProcessing(true)
+    set_processing(true)
 
     // Simular procesamiento de pago
     await new Promise((resolve) => setTimeout(resolve, 2000))
 
     // Actualizar estado del ticket
     if (ticket) {
-      const updatedTicket = { ...ticket, status: "confirmed" }
-      localStorage.setItem(`ticket_${ticketId}`, JSON.stringify(updatedTicket))
+      const updated_ticket = { ...ticket, status: "confirmed" }
+      localStorage.setItem(`ticket_${ticket_id}`, JSON.stringify(updated_ticket))
     }
 
     // Mostrar pantalla de redirección
-    setReturningToSite(true)
+    set_returning_to_site(true)
   }
 
   if (!ticket) {
@@ -92,7 +92,7 @@ function MpContent() {
     )
   }
 
-  if (redirecting || returningToSite) {
+  if (redirecting || returning_to_site) {
     return (
       <div className="flex min-h-screen flex-col items-center justify-center gap-4" style={{ background: MP_COLORS.background }}>
         <Loader2 className="h-12 w-12 animate-spin" style={{ color: MP_COLORS.primary }} />
@@ -103,7 +103,7 @@ function MpContent() {
     )
   }
 
-  const formattedDate = new Date(ticket.visit_date + "T00:00:00").toLocaleDateString("es-AR", {
+  const formatted_date = new Date(ticket.visit_date + "T00:00:00").toLocaleDateString("es-AR", {
     weekday: "long",
     day: "numeric",
     month: "long",
@@ -145,7 +145,7 @@ function MpContent() {
                       EcoHarmony Park
                     </div>
                     <div className="text-sm text-muted-foreground">
-                      {ticket.quantity} {ticket.quantity === 1 ? "entrada" : "entradas"} • {formattedDate}
+                      {ticket.quantity} {ticket.quantity === 1 ? "entrada" : "entradas"} • {formatted_date}
                     </div>
                   </div>
                 </div>
@@ -164,7 +164,7 @@ function MpContent() {
                 <Button
                   className="w-full text-white hover:opacity-90 h-14 text-lg"
                   style={{ background: MP_COLORS.primary }}
-                  onClick={handlePayment}
+                  onClick={handle_payment}
                   disabled={processing}
                 >
                   {processing ? (

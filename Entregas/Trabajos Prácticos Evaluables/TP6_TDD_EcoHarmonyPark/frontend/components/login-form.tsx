@@ -13,47 +13,47 @@ import { Trees, Sparkles } from "lucide-react"
 
 export function LoginForm() {
   const { login, register } = use_auth()
-  const [isLogin, setIsLogin] = useState(true)
-  const [email, setEmail] = useState("")
-  const [password, setPassword] = useState("")
-  const [name, setName] = useState("")
-  const [error, setError] = useState("")
-  const [isLoading, setIsLoading] = useState(false)
+  const [is_login, set_is_login] = useState(true)
+  const [email, set_email] = useState("")
+  const [password, set_password] = useState("")
+  const [name, set_name] = useState("")
+  const [error, set_error] = useState("")
+  const [is_loading, set_is_loading] = useState(false)
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handle_submit = async (e: React.FormEvent) => {
     e.preventDefault()
-    setError("")
-    setIsLoading(true)
+    set_error("")
+    set_is_loading(true)
 
     try {
       let success = false
-      if (isLogin) {
+      if (is_login) {
         success = await login(email, password)
         if (!success) {
-          setError("Por favor ingresa un email válido")
+          set_error("Por favor ingresa un email válido")
         }
       } else {
         if (!name.trim()) {
-          setError("Por favor ingresa tu nombre")
-          setIsLoading(false)
+          set_error("Por favor ingresa tu nombre")
+          set_is_loading(false)
           return
         }
         success = await register(email, password, name)
         if (!success) {
-          setError("El email ya está registrado")
+          set_error("El email ya está registrado")
         }
       }
     } catch (err) {
-      setError("Ocurrió un error. Por favor intenta nuevamente.")
+      set_error("Ocurrió un error. Por favor intenta nuevamente.")
     } finally {
-      setIsLoading(false)
+      set_is_loading(false)
     }
   }
 
-  const fillDemoCredentials = () => {
-    setEmail("demo@parque.com")
-    setPassword("123")
-    setIsLogin(true)
+  const fill_demo_credentials = () => {
+    set_email("demo@parque.com")
+    set_password("123")
+    set_is_login(true)
   }
 
   return (
@@ -96,18 +96,18 @@ export function LoginForm() {
           </div>
           <div>
             <CardTitle className="font-display text-3xl font-bold text-balance">
-              {isLogin ? "Bienvenido de Nuevo" : "Únete a la Aventura"}
+              {is_login ? "Bienvenido de Nuevo" : "Únete a la Aventura"}
             </CardTitle>
             <CardDescription className="text-base text-pretty">
-              {isLogin
+              {is_login
                 ? "Ingresa tus credenciales para comprar entradas al parque"
                 : "Crea tu cuenta y comienza a explorar la naturaleza"}
             </CardDescription>
           </div>
         </CardHeader>
         <CardContent>
-          <form onSubmit={handleSubmit} className="space-y-4">
-            {!isLogin && (
+          <form onSubmit={handle_submit} className="space-y-4">
+            {!is_login && (
               <div className="space-y-2">
                 <Label htmlFor="name" className="text-sm font-medium">
                   Nombre Completo
@@ -117,8 +117,8 @@ export function LoginForm() {
                   type="text"
                   placeholder="Juan Pérez"
                   value={name}
-                  onChange={(e) => setName(e.target.value)}
-                  required={!isLogin}
+                  onChange={(e) => set_name(e.target.value)}
+                  required={!is_login}
                   className="h-11"
                 />
               </div>
@@ -133,7 +133,7 @@ export function LoginForm() {
                 type="email"
                 placeholder="tu@email.com"
                 value={email}
-                onChange={(e) => setEmail(e.target.value)}
+                onChange={(e) => set_email(e.target.value)}
                 required
                 className="h-11"
               />
@@ -148,7 +148,7 @@ export function LoginForm() {
                 type="password"
                 placeholder="Escribe cualquier cosa"
                 value={password}
-                onChange={(e) => setPassword(e.target.value)}
+                onChange={(e) => set_password(e.target.value)}
                 required
                 className="h-11"
               />
@@ -160,12 +160,12 @@ export function LoginForm() {
               </Alert>
             )}
 
-            {isLogin && (
+            {is_login && (
               <Button
                 type="button"
                 variant="outline"
                 className="w-full border-primary/20 hover:bg-primary/5 bg-transparent"
-                onClick={fillDemoCredentials}
+                onClick={fill_demo_credentials}
               >
                 <Sparkles className="mr-2 h-4 w-4" />
                 Rellenar ejemplo rápido
@@ -175,29 +175,29 @@ export function LoginForm() {
             <Button
               type="submit"
               className="h-11 w-full bg-gradient-to-r from-primary to-accent font-semibold text-white shadow-lg hover:shadow-xl transition-all"
-              disabled={isLoading}
+              disabled={is_loading}
             >
-              {isLoading ? "Procesando..." : isLogin ? "Iniciar Sesión" : "Crear Cuenta"}
+              {is_loading ? "Procesando..." : is_login ? "Iniciar Sesión" : "Crear Cuenta"}
             </Button>
 
             <div className="text-center text-sm">
               <button
                 type="button"
                 onClick={() => {
-                  setIsLogin(!isLogin)
-                  setError("")
-                  setEmail("")
-                  setPassword("")
-                  setName("")
+                  set_is_login(!is_login)
+                  set_error("")
+                  set_email("")
+                  set_password("")
+                  set_name("")
                 }}
                 className="font-medium text-primary hover:underline"
               >
-                {isLogin ? "¿No tienes cuenta? Regístrate aquí" : "¿Ya tienes cuenta? Inicia sesión"}
+                {is_login ? "¿No tienes cuenta? Regístrate aquí" : "¿Ya tienes cuenta? Inicia sesión"}
               </button>
             </div>
           </form>
 
-          {isLogin && (
+          {is_login && (
             <div className="mt-6 rounded-lg border border-primary/20 bg-primary/5 p-4">
               <p className="text-center text-sm text-muted-foreground">
                 <strong className="text-foreground">Instrucciones:</strong>
