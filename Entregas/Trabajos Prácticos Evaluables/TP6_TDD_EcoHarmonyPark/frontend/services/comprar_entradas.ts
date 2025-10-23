@@ -6,7 +6,7 @@ const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000';
 // Crear instancia de Axios con configuración base
 const api_client = axios.create({
   baseURL: API_BASE_URL,
-  timeout: 10000, // 10 segundos de timeout
+  timeout: 15000, // 15 segundos de timeout para móvil
   headers: {
     'Content-Type': 'application/json',
   },

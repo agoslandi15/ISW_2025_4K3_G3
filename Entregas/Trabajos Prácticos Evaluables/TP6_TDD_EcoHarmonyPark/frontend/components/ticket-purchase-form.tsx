@@ -181,9 +181,9 @@ export function TicketPurchaseForm() {
   const total_amount = calculate_total(visitors)
 
   return (
-    <div className="mx-auto max-w-4xl">
+    <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
       {/* Progress indicator */}
-      <div className="mb-8">
+      <div className="mb-6 md:mb-8">
         <div className="flex items-center justify-between relative">
           {[1, 2, 3].map((s) => (
             <div key={s} className="flex flex-col items-center flex-1">
@@ -193,22 +193,24 @@ export function TicketPurchaseForm() {
                   style={{ visibility: s === 1 ? 'hidden' : 'visible' }} 
                 />
                 <div
-                  className={`flex h-10 w-10 items-center justify-center rounded-full border-2 font-semibold transition-colors ${
+                  className={`flex h-8 w-8 md:h-10 md:w-10 items-center justify-center rounded-full border-2 font-semibold transition-colors ${
                     s <= step
                       ? "border-primary bg-primary text-white"
                       : "border-border bg-background text-muted-foreground"
                   }`}
                 >
-                  {s < step ? <CheckCircle2 className="h-5 w-5" /> : s}
+                  {s < step ? <CheckCircle2 className="h-4 w-4 md:h-5 md:w-5" /> : s}
                 </div>
                 <div 
                   className={`flex-1 h-1 transition-colors ${s < step ? "bg-primary" : "bg-border"}`}
                   style={{ visibility: s === 3 ? 'hidden' : 'visible' }} 
                 />
               </div>
-              <span className={`mt-2 text-sm ${step === s ? "font-semibold text-primary" : "text-muted-foreground"}`}>
-                {s === 1 && "Fecha y Cantidad"}
-                {s === 2 && "Datos de Visitantes"}
+              <span className={`mt-2 text-xs md:text-sm text-center px-1 leading-tight ${step === s ? "font-semibold text-primary" : "text-muted-foreground"}`}>
+                {s === 1 && <span className="hidden sm:inline">Fecha y Cantidad</span>}
+                {s === 1 && <span className="sm:hidden">Fecha</span>}
+                {s === 2 && <span className="hidden sm:inline">Datos de Visitantes</span>}
+                {s === 2 && <span className="sm:hidden">Visitantes</span>}
                 {s === 3 && "Pago"}
               </span>
             </div>
@@ -216,9 +218,9 @@ export function TicketPurchaseForm() {
         </div>
       </div>
 
-      <Card>
-        <CardHeader>
-          <CardTitle className="font-display text-2xl">
+      <Card className="w-full">
+        <CardHeader className="px-4 md:px-6">
+          <CardTitle className="font-display text-xl md:text-2xl">
             {step === 1 && "Selecciona Fecha y Cantidad"}
             {step === 2 && "Información de Visitantes"}
             {step === 3 && "Método de Pago"}
@@ -229,7 +231,7 @@ export function TicketPurchaseForm() {
             {step === 3 && "Selecciona cómo deseas pagar tus entradas"}
           </CardDescription>
         </CardHeader>
-        <CardContent className="space-y-6">
+        <CardContent className="space-y-4 md:space-y-6 px-4 md:px-6">
           {/* Step 1: Date and Quantity */}
           {step === 1 && (
             <>
@@ -244,7 +246,7 @@ export function TicketPurchaseForm() {
                   min={get_min_date()}
                   value={visitDate}
                   onChange={(e) => setVisitDate(e.target.value)}
-                  className={errors.visitDate ? "border-destructive" : ""}
+                  className={`h-12 text-base md:h-10 md:text-sm ${errors.visitDate ? "border-destructive" : ""}`}
                 />
                 {errors.visitDate && (
                   <Alert variant="destructive">
@@ -269,7 +271,7 @@ export function TicketPurchaseForm() {
                   max="10"
                   value={quantity}
                   onChange={(e) => handleQuantityChange(Number.parseInt(e.target.value) || 1)}
-                  className={errors.quantity ? "border-destructive" : ""}
+                  className={`h-12 text-base md:h-10 md:text-sm ${errors.quantity ? "border-destructive" : ""}`}
                 />
                 {errors.quantity && (
                   <Alert variant="destructive">
@@ -280,8 +282,8 @@ export function TicketPurchaseForm() {
                 <p className="text-sm text-muted-foreground">Máximo 10 entradas por compra</p>
               </div>
 
-              <div className="flex justify-end">
-                <Button onClick={handleNext} className="bg-primary hover:bg-primary-dark">
+              <div className="flex justify-end px-2">
+                <Button onClick={handleNext} className="bg-primary hover:bg-primary-dark h-12 px-8 text-base md:h-10 md:px-4 md:text-sm w-full max-w-xs md:w-auto">
                   Continuar
                 </Button>
               </div>
@@ -298,7 +300,7 @@ export function TicketPurchaseForm() {
                       <CardTitle className="text-base">Visitante {index + 1}</CardTitle>
                     </CardHeader>
                     <CardContent className="space-y-4">
-                      <div className="grid gap-4 sm:grid-cols-2">
+                      <div className="grid gap-4 md:grid-cols-2">
                         <div className="space-y-2">
                           <Label htmlFor={`age-${index}`}>Edad</Label>
                           <Input
@@ -319,7 +321,7 @@ export function TicketPurchaseForm() {
                                 }
                               }
                             }}
-                            className={errors[`visitor-${index}`] ? "border-destructive" : ""}
+                            className={`h-12 text-base md:h-10 md:text-sm ${errors[`visitor-${index}`] ? "border-destructive" : ""}`}
                           />
                           {errors[`visitor-${index}`] && (
                             <Alert variant="destructive">
@@ -345,7 +347,7 @@ export function TicketPurchaseForm() {
                             value={visitor.pass_type}
                             onValueChange={(value) => updateVisitor(index, "pass_type", value)}
                           >
-                            <SelectTrigger id={`pass-${index}`}>
+                            <SelectTrigger id={`pass-${index}`} className="h-12 text-base md:h-10 md:text-sm">
                               <SelectValue />
                             </SelectTrigger>
                             <SelectContent>
@@ -360,11 +362,11 @@ export function TicketPurchaseForm() {
                 ))}
               </div>
 
-              <div className="flex items-center justify-between border-t pt-4">
-                <Button variant="outline" onClick={() => setStep(1)}>
+              <div className="flex items-center justify-between border-t pt-4 gap-2 px-2">
+                <Button variant="outline" onClick={() => setStep(1)} className="h-12 px-4 text-base md:h-10 md:px-4 md:text-sm flex-1 max-w-[45%] md:flex-none md:max-w-none">
                   Atrás
                 </Button>
-                <Button onClick={handleNext} className="bg-primary hover:bg-primary-dark">
+                <Button onClick={handleNext} className="bg-primary hover:bg-primary-dark h-12 px-4 text-base md:h-10 md:px-4 md:text-sm flex-1 max-w-[45%] md:flex-none md:max-w-none">
                   Continuar
                 </Button>
               </div>
@@ -402,18 +404,18 @@ export function TicketPurchaseForm() {
                     value={paymentMethod}
                     onValueChange={(value) => setPaymentMethod(value as "cash" | "card")}
                   >
-                    <div className="flex items-center space-x-2 rounded-lg border p-4 hover:bg-muted/50">
-                      <RadioGroupItem value="card" id="card" />
+                    <div className="flex items-center space-x-3 rounded-lg border p-4 md:p-3 hover:bg-muted/50 min-h-[72px] md:min-h-[60px]">
+                      <RadioGroupItem value="card" id="card" className="mt-1" />
                       <Label htmlFor="card" className="flex-1 cursor-pointer">
-                        <div className="font-semibold">Tarjeta de Crédito</div>
-                        <div className="text-sm text-muted-foreground">Pago seguro con Mercado Pago</div>
+                        <div className="font-semibold text-base md:text-sm">Tarjeta de Crédito</div>
+                        <div className="text-sm md:text-xs text-muted-foreground">Pago seguro con Mercado Pago</div>
                       </Label>
                     </div>
-                    <div className="flex items-center space-x-2 rounded-lg border p-4 hover:bg-muted/50">
-                      <RadioGroupItem value="cash" id="cash" />
+                    <div className="flex items-center space-x-3 rounded-lg border p-4 md:p-3 hover:bg-muted/50 min-h-[72px] md:min-h-[60px]">
+                      <RadioGroupItem value="cash" id="cash" className="mt-1" />
                       <Label htmlFor="cash" className="flex-1 cursor-pointer">
-                        <div className="font-semibold">Efectivo en Boletería</div>
-                        <div className="text-sm text-muted-foreground">Paga al llegar al parque</div>
+                        <div className="font-semibold text-base md:text-sm">Efectivo en Boletería</div>
+                        <div className="text-sm md:text-xs text-muted-foreground">Paga al llegar al parque</div>
                       </Label>
                     </div>
                   </RadioGroup>
@@ -433,14 +435,14 @@ export function TicketPurchaseForm() {
                 </Alert>
               )}
 
-              <div className="flex items-center justify-between border-t pt-4">
-                <Button variant="outline" onClick={() => setStep(2)} disabled={is_loading}>
+              <div className="flex items-center justify-between border-t pt-4 gap-2 px-2">
+                <Button variant="outline" onClick={() => setStep(2)} disabled={is_loading} className="h-12 px-3 text-sm md:h-10 md:px-4 md:text-sm flex-1 max-w-[35%] md:flex-none md:max-w-none">
                   Atrás
                 </Button>
                 <Button 
                   onClick={handleSubmit} 
                   disabled={is_loading}
-                  className="bg-primary hover:bg-primary-dark"
+                  className="bg-primary hover:bg-primary-dark h-12 px-3 text-sm md:h-10 md:px-4 md:text-sm flex-1 max-w-[60%] md:flex-none md:max-w-none"
                 >
                   {is_loading ? "Procesando..." : "Confirmar Compra"}
                 </Button>

@@ -96,7 +96,7 @@ function PaymentContent() {
     return (
       <div className="flex min-h-screen flex-col items-center justify-center gap-4" style={{ background: MP_COLORS.background }}>
         <Loader2 className="h-12 w-12 animate-spin" style={{ color: MP_COLORS.primary }} />
-        <h2 className="text-xl font-semibold" style={{ color: MP_COLORS.text }}>
+        <h2 className="text-lg md:text-xl font-semibold text-center px-4" style={{ color: MP_COLORS.text }}>
           {redirecting ? "Redirigiendo a Mercado Pago..." : "Redirigiendo a EcoHarmony Park..."}
         </h2>
       </div>
@@ -117,22 +117,31 @@ function PaymentContent() {
           src="/logomp.jpg"
           alt="Mercado Pago"
           className="h-8"
+          onError={(e) => {
+            // Si la imagen no carga, mostrar texto como fallback
+            e.currentTarget.style.display = 'none';
+            const textElement = document.createElement('div');
+            textElement.textContent = 'Mercado Pago';
+            textElement.className = 'font-bold text-lg';
+            textElement.style.color = MP_COLORS.text;
+            e.currentTarget.parentNode?.appendChild(textElement);
+          }}
         />
       </div>
 
       {/* Contenido principal */}
       <main className="flex-1" style={{ background: MP_COLORS.contentBg }}>
-        <div className="max-w-lg mx-auto py-6 px-4">
+        <div className="max-w-lg mx-auto py-4 md:py-6 px-4">
           <Card className="overflow-hidden border-0 shadow-lg">
-            <CardContent className="p-6">
-              <div className="space-y-6">
+            <CardContent className="p-4 md:p-6">
+              <div className="space-y-4 md:space-y-6">
                 {/* Logo y detalles del comercio */}
                 <div className="flex items-center gap-3 pb-4 border-b">
                   <div className="flex h-12 w-12 items-center justify-center rounded-full bg-[#e3f2fd]">
                     <CreditCard className="h-6 w-6" style={{ color: MP_COLORS.primary }} />
                   </div>
                   <div>
-                    <div className="font-medium text-lg" style={{ color: MP_COLORS.text }}>
+                    <div className="font-medium text-base md:text-lg" style={{ color: MP_COLORS.text }}>
                       EcoHarmony Park
                     </div>
                     <div className="text-sm text-muted-foreground">
@@ -143,10 +152,10 @@ function PaymentContent() {
 
                 {/* Total */}
                 <div className="flex items-center justify-between py-4">
-                  <span className="text-lg font-medium" style={{ color: MP_COLORS.text }}>
+                  <span className="text-base md:text-lg font-medium" style={{ color: MP_COLORS.text }}>
                     Total a pagar
                   </span>
-                  <span className="text-3xl font-semibold" style={{ color: MP_COLORS.text }}>
+                  <span className="text-2xl md:text-3xl font-semibold" style={{ color: MP_COLORS.text }}>
                     ${ticket.total_amount?.toLocaleString("es-AR") || "0"}
                   </span>
                 </div>
