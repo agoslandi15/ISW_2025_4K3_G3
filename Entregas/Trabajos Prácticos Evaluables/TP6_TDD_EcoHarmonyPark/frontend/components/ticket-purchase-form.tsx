@@ -3,7 +3,7 @@
 import { useState } from "react"
 import { useRouter } from "next/navigation"
 import { use_auth } from "@/lib/auth-context"
-import { use_comprar_entradas } from "../hooks/useComprarEntradas"
+import { use_comprar_entradas } from "../hooks/use_comprar_entradas"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"

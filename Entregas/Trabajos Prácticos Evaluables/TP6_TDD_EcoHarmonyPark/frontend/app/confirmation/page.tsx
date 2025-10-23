@@ -139,7 +139,7 @@ function ConfirmationContent() {
                   <div>
                     <div className="text-sm text-muted-foreground">Método de Pago</div>
                     <div className="font-semibold">
-                      {ticket.payment_method === "card" ? "Tarjeta de Crédito/Débito" : "Efectivo en Boletería"}
+                      {ticket.payment_method === "card" ? "Tarjeta de Crédito (Mercado Pago)" : "Efectivo en Boletería"}
                     </div>
                   </div>
                 </div>

@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import comprar_entradas_service from '../services/comprarEntradas';
+import comprar_entradas_service from '../services/comprar_entradas';
 
 interface Visitor {
   age: number | null;
