@@ -106,11 +106,11 @@ export function use_comprar_entradas({ on_success, on_error }: use_comprar_entra
   };
 
   const redirect_to_payment = (ticket_id: string) => {
-    router.push(`/payment?ticketId=${ticket_id}`);
+    router.push(`/pag_mp?ticketId=${ticket_id}`);
   };
 
   const redirect_to_confirmation = (ticket_id: string) => {
-    router.push(`/confirmation?ticketId=${ticket_id}`);
+    router.push(`/pag_confirmacion?ticketId=${ticket_id}`);
   };
 
   const clear_error = () => {

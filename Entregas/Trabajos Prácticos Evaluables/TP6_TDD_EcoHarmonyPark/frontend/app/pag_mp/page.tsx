@@ -16,7 +16,7 @@ const MP_COLORS = {
   text: "#333333",
 }
 
-function PaymentContent() {
+function MpContent() {
   const router = useRouter()
   const searchParams = useSearchParams()
   const ticketId = searchParams.get("ticketId")
@@ -60,7 +60,7 @@ function PaymentContent() {
   useEffect(() => {
     if (returningToSite) {
       const timer = setTimeout(() => {
-        router.push(`/confirmation?ticketId=${ticketId}`)
+        router.push(`/pag_confirmacion?ticketId=${ticketId}`)
       }, 2000)
       return () => clearTimeout(timer)
     }
@@ -189,7 +189,7 @@ function PaymentContent() {
   )
 }
 
-export default function PaymentPage() {
+export default function MpPage() {
   return (
     <Suspense
       fallback={
@@ -198,7 +198,7 @@ export default function PaymentPage() {
         </div>
       }
     >
-      <PaymentContent />
+      <MpContent />
     </Suspense>
   )
 }
