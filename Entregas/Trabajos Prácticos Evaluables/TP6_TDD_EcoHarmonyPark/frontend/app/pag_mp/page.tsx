@@ -4,7 +4,7 @@ import { useEffect, useState, Suspense } from "react"
 import { useRouter, useSearchParams } from "next/navigation"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
-import type { Ticket } from "@/lib/park-data"
+import type { Ticket } from "@/lib/park_data"
 import { ArrowLeft, CreditCard, Loader2 } from "lucide-react"
 
 // Colores de Mercado Pago

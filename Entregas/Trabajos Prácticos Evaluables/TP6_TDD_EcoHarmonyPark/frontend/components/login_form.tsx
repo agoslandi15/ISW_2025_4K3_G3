@@ -3,7 +3,7 @@
 import type React from "react"
 import { useState } from "react"
 import Image from "next/image"
-import { use_auth } from "@/lib/auth-context"
+import { use_auth } from "@/lib/auth_context"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
@@ -65,15 +65,10 @@ export function LoginForm() {
       </div>
 
       <div className="absolute left-[10%] top-[15%] animate-float opacity-20">
-        <div className="h-24 w-24 overflow-hidden">
-          <Image
-            src="/logoEcoHarmonyPark.jpg"
-            alt="EcoHarmony Park logo floating"
-            width={96}
-            height={96}
-            className="h-24 w-24 object-contain"
-          />
-        </div>
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="h-8 w-8 md:h-12 md:w-12 text-primary">
+          <path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"></path>
+          <path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"></path>
+        </svg>
       </div>
       <div className="absolute right-[15%] top-[25%] animate-float-delayed opacity-20">
         <Trees className="h-16 w-16 text-accent" />
@@ -115,7 +110,7 @@ export function LoginForm() {
                 <Input
                   id="name"
                   type="text"
-                  placeholder="Juan Pérez"
+                  placeholder="Nombre y apellido"
                   value={name}
                   onChange={(e) => set_name(e.target.value)}
                   required={!is_login}
@@ -141,12 +136,12 @@ export function LoginForm() {
 
             <div className="space-y-2">
               <Label htmlFor="password" className="text-sm font-medium">
-                Contraseña (cualquiera)
+                Contraseña
               </Label>
               <Input
                 id="password"
                 type="password"
-                placeholder="Escribe cualquier cosa"
+                placeholder="Ingrese tu contraseña"
                 value={password}
                 onChange={(e) => set_password(e.target.value)}
                 required
@@ -204,7 +199,7 @@ export function LoginForm() {
                 <br />
                 📧 <strong>Email:</strong> Ingresa tu email real(recibirás la confirmación aquí)
                 <br />
-                🔐 <strong>Contraseña:</strong> Cualquier cosa (ej: <code className="rounded bg-background px-1">123</code>)
+                🔐 <strong>Contraseña:</strong> Ingrese tu contraseña
               </p>
             </div>
           )}

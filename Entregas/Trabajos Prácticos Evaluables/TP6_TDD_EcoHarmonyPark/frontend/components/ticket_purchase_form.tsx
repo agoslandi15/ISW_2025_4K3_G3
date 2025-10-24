@@ -2,16 +2,16 @@
 
 import { useState } from "react"
 import { useRouter } from "next/navigation"
-import { use_auth } from "@/lib/auth-context"
+import { use_auth } from "@/lib/auth_context"
 import { use_comprar_entradas } from "../hooks/use_comprar_entradas"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Alert, AlertDescription } from "@/components/ui/alert"
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio_group"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { is_park_open, get_min_date, calculate_total, type Ticket, is_christmas, is_new_year, is_within_one_month } from "@/lib/park-data"
+import { is_park_open, get_min_date, calculate_total, type Ticket, is_christmas, is_new_year, is_within_one_month } from "@/lib/park_data"
 import { Calendar, Users, CreditCard, AlertCircle, CheckCircle2 } from "lucide-react"
 
 interface Visitor {
@@ -232,7 +232,7 @@ export function TicketPurchaseForm() {
             {step === 3 && "Método de Pago"}
           </CardTitle>
           <CardDescription>
-            {step === 1 && "Elige cuándo quieres visitar el parque y cuántas entradas necesitas"}
+            {step === 1 && "Seleccione el día que quiere asistir al parque y la cantidad de entradas a comprar"}
             {step === 2 && "Ingresa la edad y tipo de pase para cada visitante"}
             {step === 3 && "Selecciona cómo deseas pagar tus entradas"}
           </CardDescription>

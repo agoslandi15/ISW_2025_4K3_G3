@@ -1,7 +1,7 @@
 "use client"
 
 import Image from "next/image"
-import { use_auth } from "@/lib/auth-context"
+import { use_auth } from "@/lib/auth_context"
 import { Button } from "@/components/ui/button"
 import { LogOut, User } from "lucide-react"
 

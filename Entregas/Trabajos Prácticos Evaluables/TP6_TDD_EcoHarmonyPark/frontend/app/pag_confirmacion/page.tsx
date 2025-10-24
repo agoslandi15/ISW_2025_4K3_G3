@@ -2,11 +2,11 @@
 
 import { useEffect, useState, Suspense } from "react"
 import { useRouter, useSearchParams } from "next/navigation"
-import { use_auth } from "@/lib/auth-context"
+import { use_auth } from "@/lib/auth_context"
 import { Header } from "@/components/header"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import type { Ticket } from "@/lib/park-data"
+import type { Ticket } from "@/lib/park_data"
 import { CheckCircle2, Calendar, Users, CreditCard, Home, Loader2 } from "lucide-react"
 
 function ConfirmationContent() {
@@ -229,7 +229,7 @@ function ConfirmationContent() {
                 </li>
                 <li className="flex items-start gap-3">
                   <span className="mt-0.5 text-primary">•</span>
-                  <span className="leading-relaxed">Presenta tu comprobante al ingresar al parque</span>
+                  <span className="leading-relaxed">Se le envió un mail a <strong>{user?.email}</strong> con su comprobante de compra y entrada</span>
                 </li>
                 <li className="flex items-start gap-3">
                   <span className="mt-0.5 text-primary">•</span>
