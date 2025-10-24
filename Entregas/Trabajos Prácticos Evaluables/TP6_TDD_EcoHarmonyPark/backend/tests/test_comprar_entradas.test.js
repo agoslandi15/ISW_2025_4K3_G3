@@ -3,7 +3,7 @@ const comprar_entradas = require('../utils/comprar_entradas');
 test(
     'Deberia realizar la compra de entradas correctamente', () => {
         const resultado = comprar_entradas(
-            '2025-10-22',
+            '2025-10-25',
             2,
             [25, 30],
             ['VIP', 'Regular'],
@@ -16,13 +16,13 @@ test(
 test(
     'Deberia devolver error por cantidad de entradas no válida', () => {
         const resultado = comprar_entradas(
-            '2023-12-01',
+            '2025-11-01',
             11,
             [25, 30],
             ['VIP', 'Regular'],
             'efectivo'
         );
-        expect(resultado).toBe("Cantidad de entradas no válida, no puede superar las 10 entradas");
+        expect(resultado).toBe("No puede superar las 10 entradas");
     }
 );
 
@@ -35,7 +35,7 @@ test(
             ['VIP', 'Regular'],
             'mercado pago'
         );
-        expect(resultado).toBe("Fecha de evento no válida, el parque está cerrado ese día");
+        expect(resultado).toBe("Parque cerrado los días lunes");
     }
 );
 
@@ -48,7 +48,7 @@ test(
             ['VIP', 'Regular'],
             'mercado pago'
         );
-        expect(resultado).toBe("Compra anticipada no válida, se permiten compras con hasta un mes de anticipación");
+        expect(resultado).toBe("La fecha del evento debe ser igual o mayor a la actual");
     }
 );
 
