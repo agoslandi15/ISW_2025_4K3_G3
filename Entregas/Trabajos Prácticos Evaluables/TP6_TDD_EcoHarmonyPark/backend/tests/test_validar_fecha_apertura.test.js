@@ -1,7 +1,7 @@
 const validar_fecha_apertura = require('../utils/validar_fecha_apertura');
 
 test('fecha invalida dias lunes', () => {
-  const fecha = new Date(2024, 9, 7);
+  const fecha = new Date(2025, 9, 27);
   expect(validar_fecha_apertura(fecha)).toBe('Parque cerrado los días lunes');
 });
 

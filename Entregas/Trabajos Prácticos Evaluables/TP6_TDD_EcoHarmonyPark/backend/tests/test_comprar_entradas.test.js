@@ -29,7 +29,7 @@ test(
 test(
     'Deberia devolver error por fecha de evento no válida', () => {
         const resultado = comprar_entradas(
-            '2025-10-20', // lunes
+            '2025-10-27', // lunes
             2,
             [25, 30],
             ['VIP', 'Regular'],
@@ -40,7 +40,7 @@ test(
 );
 
 test(
-    'Deberia devolver error por compra anticipada no válida', () => {
+    'Deberia devolver error por compra en fecha pasada', () => {
         const resultado = comprar_entradas(
             '2023-12-01',
             2,
