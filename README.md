@@ -60,7 +60,24 @@ ISW_2025_4K3_G3
 │   └── Bibliografía
 └── Entregas
     ├── Trabajos de Investigación Grupal
-    └── Trabajos Prácticos Evaluables   
+    └── Trabajos Prácticos Evaluables
+        └── TP6_TDD_EcoHarmonyPark
+            ├── backend
+            │   ├── mailer
+            │   ├── routes
+            │   ├── tests
+            │   └── utils
+            └── frontend
+                ├── app
+                │   ├── pag_confirmacion
+                │   └── pag_mp
+                ├── components
+                │   └── ui
+                ├── hooks
+                ├── lib
+                ├── public
+                ├── services
+                └── styles
 ```
 
 ## 📦 Ítems de Configuración
@@ -78,6 +95,7 @@ ISW_2025_4K3_G3
 | Clases Grabadas                                | Material de Estudio  | `ISW_Clases_grabadas.xlsx`                 | `ISW_2025_4K3_G3/Documentación/`                                          |
 | Presentación de la materia ISW                | Planificación        | `Presentación_ISW.pdf`                     | `ISW_2025_4K3_G3/Planificación/`                                          |
 | Trabajos de Investigación Grupal              | Entregas             | `TIG<<Nro>>_<<Tema>>.pdf`                  | `ISW_2025_4K3_G3/Entregas/Trabajos de Investigación Grupal/`             |
+| Documento de Decisiones de Diseño y Estilo de Código | Entregas        | `Decisiones de Diseño y Estilo de Código.pdf` | `ISW_2025_4K3_G3/Entregas/Trabajos Prácticos Evaluables/TP6_TDD_EcoHarmonyPark/` |
 
 ---
 
